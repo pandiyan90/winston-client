@@ -1,0 +1,1 @@
+`winston-client` has log rotating file configurations for info, debug, error, trace, warn.

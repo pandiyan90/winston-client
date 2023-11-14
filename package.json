@@ -1,0 +1,28 @@
+{
+  "author": "Alexpandiyan Chokkkan",
+  "dependencies": {
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "description": "`winston-client` has log rotating file configurations for info, debug, error, trace, warn.",
+  "keywords": [
+    "log",
+    "logger",
+    "winston",
+    "rotate-file",
+    "javascript",
+    "nodejs",
+    "info",
+    "debug",
+    "error",
+    "warn",
+    "trace"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "winston-client",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "2.0.0"
+}
