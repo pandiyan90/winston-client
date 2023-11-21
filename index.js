@@ -53,12 +53,12 @@ const warnLogFileTransport = new DailyRotateFile({
     zippedArchive: true
 })
 
-const traceLogFileTransport = new DailyRotateFile({
-    filename: `${logDir}/trace-logs-%DATE%.log`,
+const sillyLogFileTransport = new DailyRotateFile({
+    filename: `${logDir}/silly-logs-%DATE%.log`,
     frequency: '1h',
     datePattern: 'YYYY-MM-DD_HH',
     maxSize: '10m',
-    level: 'trace',
+    level: 'silly',
     maxFiles: '7d',
     zippedArchive: true
 })
@@ -85,7 +85,7 @@ const logger = winston.createLogger({
         debugLogFileTransport,
         infoLogFileTransport,
         warnLogFileTransport,
-        traceLogFileTransport
+        sillyLogFileTransport
     ]
 });
 
