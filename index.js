@@ -15,41 +15,51 @@ if(!fs.existsSync(logDir)) {
 
 const errorLogFileTransport = new DailyRotateFile({
     filename: `${logDir}/error-logs-%DATE%.log`,
-    datePattern: 'YYYY-MM-DD_HH-mm-ss.SSS',
-    maxSize: '10k',
+    frequency: '1h',
+    datePattern: 'YYYY-MM-DD_HH',
+    maxSize: '10m',
     level: 'error',
+    maxFiles: '7d',
     zippedArchive: true
 })
 
 const debugLogFileTransport = new DailyRotateFile({
     filename: `${logDir}/debug-logs-%DATE%.log`,
-    datePattern: 'YYYY-MM-DD_HH-mm-ss.SSS',
-    maxSize: '10k',
+    frequency: '1h',
+    datePattern: 'YYYY-MM-DD_HH',
+    maxSize: '10m',
     level: 'debug',
+    maxFiles: '7d',
     zippedArchive: true
 })
 
 const infoLogFileTransport = new DailyRotateFile({
     filename: `${logDir}/info-logs-%DATE%.log`,
-    datePattern: 'YYYY-MM-DD_HH-mm-ss.SSS',
-    maxSize: '10k',
+    frequency: '1h',
+    datePattern: 'YYYY-MM-DD_HH',
+    maxSize: '10m',
     level: 'info',
+    maxFiles: '7d',
     zippedArchive: true
 })
 
 const warnLogFileTransport = new DailyRotateFile({
     filename: `${logDir}/warn-logs-%DATE%.log`,
-    datePattern: 'YYYY-MM-DD_HH-mm-ss.SSS',
-    maxSize: '10k',
+    frequency: '1h',
+    datePattern: 'YYYY-MM-DD_HH',
+    maxSize: '10m',
     level: 'warn',
+    maxFiles: '7d',
     zippedArchive: true
 })
 
 const traceLogFileTransport = new DailyRotateFile({
     filename: `${logDir}/trace-logs-%DATE%.log`,
-    datePattern: 'YYYY-MM-DD_HH-mm-ss.SSS',
-    maxSize: '10k',
+    frequency: '1h',
+    datePattern: 'YYYY-MM-DD_HH',
+    maxSize: '10m',
     level: 'trace',
+    maxFiles: '7d',
     zippedArchive: true
 })
 
