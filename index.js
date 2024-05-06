@@ -1,10 +1,11 @@
-const winston = require('winston');
-const DailyRotateFile = require('winston-daily-rotate-file');
-const fs = require('fs');
-const path = require('path');
+import winston  from 'winston';
+import DailyRotateFile from 'winston-daily-rotate-file';
+import fs from 'fs';
+import path from 'path';
 
 const env = process.env.NODE_ENV || 'development';
 const logDir = 'logs';
+const mainFilename = import.meta.url.slice(7);
 
 /**
  * Creating the `logs` directory if not exists
@@ -63,10 +64,10 @@ const sillyLogFileTransport = new DailyRotateFile({
     zippedArchive: true
 })
 
-const logger = winston.createLogger({
+const LOG = winston.createLogger({
     level: env === 'development' ? 'debug' : 'info',
     format: winston.format.combine(
-        winston.format.label({ label: path.basename(require.main.filename)}),
+        winston.format.label({ label: path.basename(mainFilename)}),
         winston.format.timestamp({
             format: 'YYYY-MM-DD HH:mm:ss.SSS'
         }),
@@ -74,10 +75,10 @@ const logger = winston.createLogger({
     ),
     transports: [
         new winston.transports.Console({
-            level: 'info',
+            level: 'debug',
             format: winston.format.combine(
                 winston.format.printf(
-                    info => `${info.timestamp} ${info.level} [${info.label}]: ${info.message}`
+                    log => `${log.timestamp} ${log.level} [${log.label}]: ${log.message}`
                 )
             )
         }),
@@ -89,4 +90,4 @@ const logger = winston.createLogger({
     ]
 });
 
-module.exports = logger;
+export default LOG;
