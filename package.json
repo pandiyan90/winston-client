@@ -1,6 +1,6 @@
 {
   "name": "winston-client",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A versatile logging utility based on winston, featuring daily rotating log files and easy configuration for both file and console logging.",
   "main": "index.mjs",
   "scripts": {
