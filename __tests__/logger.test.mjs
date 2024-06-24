@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import { configureLogger, getLogger } from '../index.mjs';
 
 const logDir = 'test-logs';
@@ -23,8 +23,7 @@ describe('winston-client', () => {
             createFileLogs: true,
             includeConsole: true,
             logDir,
-            env: 'dev',
-            mainFilename: 'test-file.js',
+            env: 'dev'
         };
 
         configureLogger(userConfig);

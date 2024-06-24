@@ -1,7 +1,7 @@
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 let loggerInstance = null;
 
@@ -9,8 +9,7 @@ const defaultConfig = {
     createFileLogs: true,
     includeConsole: true,
     logDir: 'logs',
-    env: process.env.NODE_ENV || 'dev',
-    mainFilename: __filename,
+    env: process.env.NODE_ENV || 'dev'
 };
 
 /**
@@ -53,9 +52,6 @@ const validateConfig = (config) => {
     if (typeof config.env !== 'string') {
         throw new Error('Invalid configuration: env must be a string');
     }
-    if (typeof config.mainFilename !== 'string') {
-        throw new Error('Invalid configuration: mainFilename must be a string');
-    }
 };
 
 /**
@@ -85,7 +81,7 @@ export const configureLogger = async (userConfig = {}) => {
         loggerInstance = winston.createLogger({
             level: config.env === 'dev' ? 'debug' : 'info',
             format: winston.format.combine(
-                winston.format.label({ label: path.basename(config.mainFilename) }),
+                // winston.format.label({ label: path.basename(config.mainFilename) }),
                 winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
                 winston.format.json()
             ),
