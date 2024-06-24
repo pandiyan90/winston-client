@@ -1,29 +1,22 @@
 {
-  "author": "Alexpandiyan Chokkkan",
-  "dependencies": {
-    "winston": "^3.13.0",
-    "winston-daily-rotate-file": "^5.0.0"
-  },
-  "description": "`winston-client` has log rotating file configurations for info, debug, error, trace, warn.",
-  "keywords": [
-    "log",
-    "logger",
-    "winston",
-    "rotate-file",
-    "javascript",
-    "nodejs",
-    "info",
-    "debug",
-    "error",
-    "warn",
-    "silly"
-  ],
-  "license": "ISC",
-  "main": "index.js",
   "name": "winston-client",
+  "version": "2.1.0",
+  "description": "A versatile logging utility based on winston, featuring daily rotating log files and easy configuration for both file and console logging.",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "type": "module",
-  "version": "2.0.8"
+  "keywords": [
+    "logging",
+    "winston",
+    "logger",
+    "daily-rotation",
+    "file-logging"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  }
 }
