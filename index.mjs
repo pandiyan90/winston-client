@@ -13,6 +13,25 @@ const defaultConfig = {
 };
 
 /**
+ * Custom format to include filename and line number
+ */
+const addFileNameAndLine = winston.format((info) => {
+    const stacklist = (new Error()).stack.split('\n').slice(3);
+    const stackReg = /\((.*):(\d+):(\d+)\)/;
+    const stackReg2 = /at (.*):(\d+):(\d+)/;
+
+    const s = stacklist[0];
+    const sp = stackReg.exec(s) || stackReg2.exec(s);
+
+    if (sp && sp.length === 4) {
+        info.file = path.basename(sp[1]);
+        info.line = sp[2];
+    }
+
+    return info;
+})();
+
+/**
  * Helper function to create DailyRotateFile transports
  */
 const createLogFileTransport = (level, logDir) => new DailyRotateFile({
@@ -23,6 +42,11 @@ const createLogFileTransport = (level, logDir) => new DailyRotateFile({
     maxFiles: '7d',
     zippedArchive: true,
     level,
+    format: winston.format.combine(
+        addFileNameAndLine,
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
+        winston.format.printf(log => `${log.timestamp} ${log.level} (${log.file}:${log.line}): ${log.message}`)
+    )
 });
 
 /**
@@ -32,7 +56,9 @@ const createConsoleTransport = () => new winston.transports.Console({
     level: 'debug',
     format: winston.format.combine(
         winston.format.colorize(),
-        winston.format.printf(log => `${log.timestamp} ${log.level} [${log.label}]: ${log.message}`)
+        addFileNameAndLine,
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
+        winston.format.printf(log => `${log.timestamp} ${log.level} (${log.file}:${log.line}): ${log.message}`)
     ),
 });
 
@@ -81,7 +107,7 @@ export const configureLogger = async (userConfig = {}) => {
         loggerInstance = winston.createLogger({
             level: config.env === 'dev' ? 'debug' : 'info',
             format: winston.format.combine(
-                // winston.format.label({ label: path.basename(config.mainFilename) }),
+                addFileNameAndLine,
                 winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
                 winston.format.json()
             ),
