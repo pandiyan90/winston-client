@@ -55,7 +55,6 @@ const createLogFileTransport = (level, logDir) => new DailyRotateFile({
 const createConsoleTransport = () => new winston.transports.Console({
     level: 'debug',
     format: winston.format.combine(
-        winston.format.colorize(),
         addFileNameAndLine,
         winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
         winston.format.printf(log => `${log.timestamp} ${log.level} (${log.file}:${log.line}): ${log.message}`)
@@ -89,7 +88,11 @@ export const configureLogger = async (userConfig = {}) => {
         validateConfig(config);
 
         if (config.createFileLogs && !fs.existsSync(config.logDir)) {
-            fs.mkdirSync(config.logDir, { recursive: true }); // Ensure logDir is created recursively
+            try {
+                fs.mkdirSync(config.logDir, { recursive: true });
+            } catch (err) {
+                throw new Error(`Failed to create log directory: ${err.message}`);
+            }
         }
 
         const transports = [];
