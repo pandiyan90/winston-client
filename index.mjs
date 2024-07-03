@@ -45,7 +45,7 @@ const createLogFileTransport = (level, logDir) => new DailyRotateFile({
     format: winston.format.combine(
         addFileNameAndLine,
         winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-        winston.format.printf(log => `${log.timestamp} ${log.level} (${log.file}:${log.line}): ${log.message}`)
+        winston.format.printf(log => `${log.timestamp} ${log.level} (${log.file}:${log.line}): ${log.message} ${log.meta ? JSON.stringify(log.meta) : ''}`)
     )
 });
 
@@ -57,7 +57,7 @@ const createConsoleTransport = () => new winston.transports.Console({
     format: winston.format.combine(
         addFileNameAndLine,
         winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-        winston.format.printf(log => `${log.timestamp} ${log.level} (${log.file}:${log.line}): ${log.message}`)
+        winston.format.printf(log => `${log.timestamp} ${log.level} (${log.file}:${log.line}): ${log.message} ${log.meta ? JSON.stringify(log.meta) : ''}`)
     ),
 });
 
